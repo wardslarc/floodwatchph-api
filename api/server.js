@@ -9,6 +9,7 @@ import config from "../src/config/config.js";
 
 // Import routes - fix the path
 import { authRoutes } from "../src/routes/auth.js";
+import { floodReportRoutes } from "../src/routes/flood-reports.js"; // Add this line
 
 // Import middleware - fix the paths
 import { securityHeaders, authLimiter, apiLimiter } from "../src/middleware/security.js";
@@ -148,6 +149,7 @@ app.use(async (req, res, next) => {
 
 // API Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/flood-reports", floodReportRoutes); // Add this line
 
 // 404 handler
 app.use("*", (req, res) => {
@@ -169,6 +171,7 @@ app.listen(PORT, '0.0.0.0', () => {
   logger.info(`📊 Environment: ${config.env}`);
   logger.info(`🌐 Health check: http://localhost:${PORT}/api/health`);
   logger.info(`🛠️  API base URL: http://localhost:${PORT}/api`);
+  logger.info(`🌊 Flood reports API: http://localhost:${PORT}/api/flood-reports`); // Add this line
 });
 
 // Process event handlers
@@ -187,8 +190,5 @@ process.on('uncaughtException', (error) => {
     process.exit(1);
   }
 });
-
-// Remove this line since we're starting the server here:
-// export default app;
 
 export default app;
